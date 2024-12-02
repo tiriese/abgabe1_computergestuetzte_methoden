@@ -1,0 +1,421 @@
+\documentclass{article}
+\usepackage{graphicx} 
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{ulem}
+
+
+
+\title{Abgabe 1 für Computergestütze Methoden}
+\author{Gruppe 41, Till Riese 4371158, Tobias Grothus 4362083}
+\date{2. Dezember 2024}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents 
+
+
+\begin{center}
+\vspace{8cm}
+\textbf{GitHub Repository} \\ 
+\url{https://github.com/tiriese/abgabe1_computergestuetzte_methoden}
+
+\end{center}
+ 
+\newpage
+
+
+
+\section{Der zentrale Grenzwertsatz }
+Der zentrale Grenzwertsatz (ZGS) ist ein fundamentales Resultat der Wahr-
+scheinlichkeitstheorie, das die Verteilung von Summen unabh¨ angiger, identisch
+verteilter (i.i.d.) Zufallsvariablen (ZV) beschreibt. Er besagt, dass unter be-
+stimmten Voraussetzungen die Summe einer großen Anzahl solcher ZV ann¨ ahernd
+normalverteilt ist, unabh¨ angig von der Verteilung der einzelnen ZV. Dies ist be-
+sonders n¨ utzlich, da die Normalverteilung gut untersucht und mathematisch
+handhabbar ist.
+
+\subsection{Aussage}
+
+Sei $X_1, X_2, . . . , Xn$ eine Folge von i.i.d. ZV mit dem Erwartungswert $\mu=\mathbb{E}(X_i)$ und der Varianz $\sigma ^2 = Var(Xi)$, wobei $0 < \sigma ^2 < \infty$ gelte. Dann konvergiert die standardisierte Summe $Z_n$ dieser ZV für ${n \to \infty}$ in Verteilung gegen eine Standardnormalverteilung:\footnote{Der zentrale Grenzwertsatz hat verschiedene Verallgemeinerungen. Ene davon ist der \textbf{Lindeberg-Feller-Zentrale-Grenzwertsatz}
+\cite[Seite 328]{Wahrscheinlichkeitstheorie}, der schwächere Bedingung an die Unabhängigkeit und die identsche Verteilung der ZV stellt. }
+
+
+\begin{equation}
+    Z_n= \sum_{i = 1}^n \frac{X_i - n\mu}{\sigma\sqrt{n}}\xrightarrow{d} \mathcal{N}(0,1). \label{eq:1}
+\end{equation} 
+
+Das bedeutet, dass für große $n$ die Summe der ZV näherungsweise normalverteilt ist mit Erwartungswert $n\mu$ und Varianz $n\sigma^2$:
+
+\begin{equation}
+    \sum_{i = 1}^n X_i \sim \mathcal{N}(n\mu, n\sigma^2) \label{eq:2}
+\end{equation}
+    
+
+
+
+
+\subsection{Erklärung der Standardisierung}
+
+Um die Summe der ZV in eine Standardnormalverteilung zu transformieren, subtrahiert man den Erwartungswert \(n\mu\) und teilt durch die Standardabweichung \(\sigma \sqrt{n}\). Dies führt zu der obigen Formel~(\ref{eq:1}). Die Darstellung~(\ref{eq:2}) ist für \(n \to \infty\) nicht wohldefiniert. 
+
+\subsection{Anwendungen}
+Der ZGS wird in vielen Bereichen der Statistik und der Wahrscheinlichkeits-
+theorie angewendet. Typische Beispiele sind: 
+
+\begin{itemize}
+    \item \textbf{Dopingtest} Mithilfe des t-Test kann  die Zuverlässigkeit von Dopingtests berechnen 
+    \item \textbf{Medizinische Studien} Es kann überprüft werden wie zuverlässig ein Medikament auf kranke/gesunde Menschen anschlägt 
+\end{itemize}
+
+\newpage
+
+\section{Bearbeitung zur Aufgabe 1} 
+
+\subsection{{Aufgabe 1: Datenhaltung \& -aufbereitung}} \hypertarget{Aufgabe 1}{} 
+\textit{Thema: Datenaufbereitung} 
+
+\begin{enumerate}
+    \item \textit{Untersuchen Sie den, für Ihre Gruppe relevanten Teil der Daten,, um sich mit seinem Aufbau vertraut zu machen, und beschreiben Sie Ihre Erkenntnisse}
+\end{enumerate}
+
+\noindent %stoppt das einrücken 
+Antwort: Nachdem wir uns den Datensatz zunächst in ein Exel-Dokument importiert, und ihn uns danach angeschaut hatte, fiel uns auf, dass alle Daten in einer gemeinsamen Zeile zusammengeschrieben waren und der Datensatz lediglich durch Zeilen beschränkt war. Da wir im späteren Verlauf die höchste mittlere Temperatur bestimmen sollte, musste der Datensatz neu sortiert, bzw. anders formatiert werden.  
+
+\begin{enumerate}[resume] %dafür das er nicht bei 1 wieder beginnt mit dem zählen 
+    \item \textit{Importieren Sie den Datensatz in eine Tabellenkalkulation}
+\end{enumerate}
+
+\noindent 
+Antwort: Wir entschieden uns den Datensatz in einem Exel-Dokument zu öffnen. 
+
+\begin{enumerate}[resume]
+    \item \textit{Berechnen Sie für den Ihrer Gruppe zugeordneten Datenteil die höchste mittlere Temperatur. Die Angabe soll in Grad Celsius erfolgen. Beschreiben Sie, wie Sie vorgegangen sind und halten Sie auch das Berechnungsergebnis fest}
+\end{enumerate}
+
+\noindent 
+Antwort: Zunächst formatierten wir den Datensatz, im Exel-Dokument, mithilfe der Sortier-Funktion. Wir markierten die erste Spalte des Datensatz und formatierten diese mithilfe der Text in Spalten-Funktion. Hierzu gaben wir Exel vor das nach jedem Trennungszeichen, in diesem Fall ein Komma, eine neue Spalte beschrieben werden sollte. Als Nächstes filterten wir, die für unsere Gruppe, relevanten Datensätze heraus, indem wir über die Filter-Funktion, in der Spalte „group“, vorgaben nur die Gruppe 41 anzeigen zu lassen. Um nun die höchste mittlere Temperatur aus dem Datensatz zu finden, markierten wir die Spalte “average\_temperature” und benutzten hier die Filter-Funktion und sortierten hiermit den gesamten Datensatz nach der durchschnittlichen Temperatur. Das Ergebnis des Filtervorganges ergab 83°F, um den Wert nun in Grad Celsius umzurechnen erstellten wir eine neue Spalte, „average\_temperature\_celsius“, wir definierten die Spalte mit dem Umrechnungsfaktor $(Fahrenheit - 32) \cdot \frac{5}{9}$. Durch einen Doppelklick auf das kleine Rechteck, rechnete Exel nun die gesamte Spalte um und die zuvor, als höchste mittelere Temperatur, 83°F ergaben umgerechnet 28,333°C.
+
+
+ \newpage
+
+\section{Bearbeitung zur Aufgabe 2}  
+\subsection{{Aufgabe 2: Textverarbeitung \& Dokumentation}} \hypertarget{Aufgabe 2}{} 
+ \textit{Thema: Datenhaltung} 
+
+\begin{enumerate} 
+    \item \textit{Machen Sie sich dem in der Vorlesung vorgestellten DBMS SQLite (\url{https://sqlite.org/}) vertraut, auch im Hinblick auf mögliche Datentypen bei der Definition von Tabellen}
+    \end{enumerate}
+
+\begin{enumerate}[resume]
+    \item \textit{Entwerfen Sie im Abgabe-Dokument ein Datenbank-Schema im in der Vorlesung vorgestellten Format. Achten Sie dabei auf die 1. und 2. Normalform}
+    \end{enumerate}
+
+Antwort: 
+
+\textbf{\textit{1. Normalform}} 
+
+Fahrradverleih \hspace{0,2cm} \textit{(group\_nr, station, date, day\_of\_year, day\_of\_week, month\_of\_year, \hspace*{3cm}
+ precipitation, windspeed,   min\_temperature, average\_temperature, \hspace*{3cm} max\_temperature, count\_nr)} \\
+
+ 
+
+\textbf{\textit{2. Normalform}}  \indent
+
+Stationen \hspace{1cm}\textit{(\underline {group\_nr\#}, station)} \\ \indent
+
+Wetter \hspace{1.5cm}\textit{(\underline {wetter\_ID\#}, date, min\_temperature, max\_temperature, \\ \indent
+\hspace{2.75cm }average\_temperature, precipitation, windspeed)} \\
+
+Fahrradnutzung \textit{(\underline{nutzung\_ID\#}, group\_nr\#, date\#, day\_of\_year, day\_of\_week, \\ \indent
+\hspace{2.5cm} month\_of\_year, count\_nr)}
+
+
+
+\begin{enumerate}[resume]
+    \item \textit{Definieren Sie mit dem DDL-Teil von SQL die Tabellen. Halten Sie die SQL-Statements im Abgabe-Dokument fest.}
+    \end{enumerate}
+
+\noindent 
+Antwort: \\
+\textbf{\textit{1. Normalform}} 
+
+CREATE TABLE group41n1 (  \\ \indent
+\hspace{1cm} group\_nr INTEGER NOT NULL, \\ \indent
+\hspace{1cm} station TEXT, date TEXT, \\ \indent
+\hspace{1cm} day\_of\_year TEXT NOT NULL, \\ \indent
+\hspace{1cm} month\_of\_year TEXT NOT NULL, \\ \indent
+\hspace{1cm} precipitation TEXT, \\ \indent
+\hspace{1cm} windspeed TEXT, \\ \indent
+\hspace{1cm} min\_temperature TEXT, \\ \indent
+\hspace{1cm} average\_temperature TEXT, \\ \indent
+\hspace{1cm} max\_temperature TEXT, \\ \indent
+\hspace{1cm} count\_nr TEXT \\ \indent
+); \\ 
+
+
+
+
+\textbf{\textit{2. Normalform}}\\
+
+CREATE TABLE  STATION ( \\ \indent
+\hspace{1cm} group\_nr INTEGER PRIMARY KEY, \\ \indent
+\hspace{1cm} station TEXT, \\ \indent
+); \\
+
+CREATE TABLE  WETTER ( \\ \indent
+\hspace{1cm} wetter\_ID INTEGER PRIMARY KEY AUINCREMENT, \\ \indent
+\hspace{1cm} date TEXT, \\ \indent
+\hspace{1cm} min\_temperature TEXT, \\ \indent 
+\hspace{1cm} max\_temperature TEXT, \\ \indent
+\hspace{1cm} average\_temperature TEXT, \\ \indent
+\hspace{1cm} precipitation TEXT, \\ \indent
+\hspace{1cm} windspeed TEXT, \\ \indent
+); \\
+
+CREATE TABLE  WETTER ( \\ \indent
+\hspace{1cm} nutzung\_ID INTEGER NOT FULL AUTOINCREMENT, \\ \indent
+\hspace{1cm} group\_nr INTEGER NOT FULL,, \\ \indent
+\hspace{1cm} date TEXT, \\ \indent 
+\hspace{1cm} day\_of\_year TEXT, \\ \indent
+\hspace{1cm} day\_of\_week TEXT, \\ \indent
+\hspace{1cm} month\_of\_year TEXT, \\ \indent
+\hspace{1cm} count\_nr TEXT, \\ \indent
+\\ \indent
+\hspace{2.5cm} FOREGIN KEY(group\_nr) REFERENCES STATION(group\_nr) \\ \indent
+\hspace{2.5cm} FOREGIN KEY(date) REFERENCES WETTER(date)\\ \indent
+); \\ \indent
+
+\newpage
+
+
+
+
+sqlite> .open group41.db \\ \indent
+sqlite> create database group 41; \\ \indent
+
+Einlesen der 1. Normalform Tabellen in SQLite: \\ \indent
+
+sqlite> .read n1txt.sql \hspace{1.5cm}\textit{Name der Schema Datei, 1. Normalform} \\ \indent 
+sqlite> .tables \\ \indent
+group41n1 \\ \indent
+sqlite> .schema \\ \indent
+
+CREATE TABLE group41n1 (  \\ \indent
+\hspace{1cm} group\_nr INTEGER NOT NULL, \\ \indent
+\hspace{1cm} station TEXT, date TEXT, \\ \indent
+\hspace{1cm} day\_of\_year TEXT NOT NULL, \\ \indent
+\hspace{1cm} month\_of\_year TEXT NOT NULL, \\ \indent
+\hspace{1cm} precipitation TEXT, \\ \indent
+\hspace{1cm} windspeed TEXT, \\ \indent
+\hspace{1cm} min\_temperature TEXT, \\ \indent
+\hspace{1cm} average\_temperature TEXT, \\ \indent
+\hspace{1cm} max\_temperature TEXT, \\ \indent
+\hspace{1cm} count\_nr TEXT \\ \indent
+); \\ \indent
+
+Einlesen der 2. Normalform Tabellen in SQLite \\ \indent
+
+sqlite> .read n2txt.sql \hspace{1.5cm}\textit{Name der Schema Datei, 2. Normalform } \\ \indent 
+
+CREATE TABLE STATION ( \\ \indent
+\hspace{1cm}groupe\_nr INTEGER PRIMARY KEY, \\ \indent
+\hspace{1cm}station TEXT \\ \indent
+);\\ \indent
+
+
+CREATE TABLE WETTER ( \\ \indent
+\hspace{1cm} wetter\_ID INTEGER PRIMARY KEY AUTOINCREMENT, \\ \indent
+\hspace{1cm} date TEXT, \\ \indent
+\hspace{1cm} max\_temperature TEXT, \\ \indent
+\hspace{1cm} average\_temperature TEXT, \\ \indent
+\hspace{1cm} precipitation TEXT, \\ \indent
+\hspace{1cm} windspeed TEXT \\ \indent
+); \\ \indent
+
+\newpage
+
+CREATE TABLE FAHRRADNUTZUNG ( \\ \indent
+\hspace{1cm}nutzung\_ID INTEGER PRIMARY KEY AUTOINCREMENT, \\ \indent
+\hspace{1cm}group\_nr INTEGER NOT NULL, \\ \indent
+\hspace{1cm}date TEXT, \\ \indent
+\hspace{1cm}day\_of\_year TEXT, \\ \indent
+\hspace{1cm}day\_of\_week TEXT, \\ \indent
+\hspace{1cm}month\_of\_year TEXT, \\ \indent
+\hspace{1cm}count\_nr TEXT, \\ \indent
+\hspace{1cm}FOREIGN KEY (group\_nr) REFERENCES STATION (group\_nr)\\ \indent
+\hspace{1cm}FOREGIN KEY (date) REFERENCES WETTER (date)\\ \indent
+);
+ 
+
+    
+\begin{enumerate}[resume]
+    \item \textit{Bereiten Sie den Datzensatz so vor (per Programm oder Tabellenkalkulation), dass die Datensätze in die passenden Tabellen \textbf{importiert} werden können. Beschreiben Sie Ihr Vorgehen.}
+    \end{enumerate} 
+    
+    
+
+
+\noindent Antwort: Nachdem alle, wie in \hyperlink{Aufgabe 1}{Aufgabe 1} erläuterten Schritte durchgeführt wurden, war es notwenig unsere eigene Gruppe aus dem Datensatz herrauszufiltern. Hierzu makierten wir erneut den gesamten Datensatz und verwendeten wieder die Filterfunktion um uns nur die Daten, welche der Gruppe 41 zugeordnet waren, anzeigen zu lassen, dann kopierten wir diese gefilterten Daten in ein neues Exel-Dokument, welches die Grundlage für die SQLite-Datenbank ergab. Des Weiteren mussten wir die Spalte \texttt{"group"} in \texttt{"group\_nr"} und die Spalte  \texttt{"count"} in  \texttt{"count\_nr"} umbenennen um eine Abfrage durch SQL zu ermöglichen, da \texttt{"count"} und \texttt{"group"} Befehle in SQLite darstellen. Außerdem mussten die Datentypen Text sein, da einige Werte als \texttt{"NA"} angegeben waren.    
+
+\newpage
+    
+\begin{enumerate}[resume]
+    \item \textit{Formulieren Sie eine Abfrage, um aus den Ihrer Gruppen zugeordneten Daten die höchste mittlere Temperatur herauszufinden und halten Sie sowohl Abfrage als auch das Ergebnis (in Grad Celsius) fest} \footnote{Im \hyperlink{anhang}{Anhang} befinden sich sich, hier niedergeschriebene, SQlite Statements in Bildform} 
+    \end{enumerate}
+\indent
+
+
+
+\textit{Abfrage der höchsten mittleren Temperatur 1. Normalform:}
+
+
+sqlite> .headers on \\ \indent
+sqlite> .separator ; \\ \indent
+sqlite> .mode csv \\ \indent
+sqlite> .import bike\_sharing\_data\_(with\_NAs).csv group41n1 \\ \indent
+sqlite> select MAX(average\_temperature) from group41n1 where \\ \indent 
+\hspace{1.1cm} average\_temperature !="NA" ; \\ \indent
+MAX(average\_temperature) \\ \indent
+83 \\ 
+
+
+\textit{Umrechnung von Fahrenheit in Grad Celcius} 
+
+
+sqlite> select MAX(average\_temperature) from group41n1 where \\ \indent 
+\hspace{1.1cm} average\_temperature !="NA" ; \\ \indent
+"(MAX(average\_temperature)) - 32) * 5/9" \\ \indent
+28 \\ \indent
+
+
+\textit{Abfrage der höchsten mittleren Temperatur 2. Normalform:} \\ \indent
+Insert into station (group\_nr, station) values (41, "Cooper Square \&  \\ \indent Astor P1"); \\ \indent
+
+
+sqlite> Insert into Fahrradnutzung (date,day\_of\_year, day\_of\_week, month\_of\_year, \\ \indent count\_nr) select date,day\_of\_year, day\_of\_week, month\_of\_year, count\_nr \\ \indent
+from group41n1; \\ \indent
+
+Insert into Wetter (date, min\_temperature, max\_temperature, average\_temperature,\\ \indent
+precipitation, windspeed) select date , min\_temperature, max\_temperature, \\ \indent 
+average\_temperature, precipitation, windspeed from group41n1;\\ \indent
+
+sqlite> select group\_nr, station, date, count\_nr, average\_temperature, \\ \indent 
+(average\_temperature-32)*5/9 AS av\_temp\_Ce1 from group41n1 \\ \indent
+where average\_temperature = (select max(average\_temperature) from \\ \indent 
+Wetter; \\ \indent
+
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|c|l|c|c|c|c|}
+        \hline
+        group\_nr & station & date & count\_nr & average\_temperature & av\_temp\_Cel \\ \hline
+        41 & Cooper Square \& Astor Pl & 28.07.2023 & 207 & 83 & 28  \\ \hline
+    \end{tabular}
+    \caption{Ergebnis der Abfrage aus 2. Normalform }
+    \label{tab:wetterdaten}
+\end{table}
+
+
+
+
+\newpage
+
+\begin{thebibliography}{9}
+\bibitem[1]{Wahrscheinlichkeitstheorie}
+Achim Klenke. \textit{Wahrscheinlichkeitstheorie} Springer, 3. edition, 2013.
+
+\end{thebibliography}
+
+\newpage
+
+\section*{Anhang} 
+\hypertarget{anhang}{}
+
+\begin{figure} [h!]
+    \centering
+    \includegraphics[width=0.5\linewidth]{SQLite_Statement_1.png}
+    \caption{SQLite Statement 1}
+    \label{fig:enter-label}
+\end{figure}
+
+\begin{figure} [h!]
+    \centering
+    \includegraphics[width=0.5\linewidth]{SQLite_Statement_2.png}
+    \caption{SQLite Statement 2}
+    \label{fig:enter-label}
+\end{figure}
+
+\begin{figure} [h!]
+    \centering
+    \includegraphics[width=0.5\linewidth]{SQLite_Statement_3.png}
+    \caption{Enter Caption}
+    \label{fig:enter-label}
+\end{figure}
+
+\begin{figure} [h!]
+    \centering
+    \includegraphics[width=1\linewidth]{SQLite_Statement_4.png}
+    \caption{SQLite Statement 4}
+    \label{fig:enter-label}
+\end{figure}
+
+\begin{figure} [h!]
+    \centering
+    \includegraphics[width=1 \linewidth]{SQLite_Statement_5.png}
+    \caption{SQLite Statement 5}
+    \label{fig:enter-label}
+\end{figure}
+
+\begin{figure} [h!]
+    \centering
+    \includegraphics[width=1\linewidth]{SQLite_Statement_6.png}
+    \caption{SQLite Statement 6}
+    \label{fig:enter-label}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1\linewidth]{SQLite_Statement_7.png}
+    \caption{SQLite Statement 7}
+    \label{fig:enter-label}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1\linewidth]{SQLite_Statement_8.png}
+    \caption{SQLite Statement 8}
+    \label{fig:enter-label}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1\linewidth]{SQLite_Statement_9.png}
+    \caption{SQLite Statement 9}
+    \label{fig:enter-label}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1\linewidth]{SQLite_Statement_10.png}
+    \caption{SQLite Statement 10}
+    \label{fig:enter-label}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1\linewidth]{SQLite_Statement_11.png}
+    \caption{SQLite Statement 11}
+    \label{fig:enter-label}
+\end{figure}
+
+\end{document}
